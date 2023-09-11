@@ -1,66 +1,62 @@
-import { useState } from "react";
-import {
-  View,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-} from "react-native";
+import React from 'react';
+import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 
+const foodData = [
+  { id: '1', name: 'Gà Rán', description: 'Gà Rán 2 miếng', price: '50,000đ' },
+  { id: '2', name: 'Burger', description: 'Burger gà', price: '45,000đ' },
+  { id: '3', name: 'Khoai Tây Chiên', description: 'Khoai tây', price: '20,000đ' },
+  // Thêm các món ăn khác vào đây
+];
 
 const Promotion = ({ navigation }) => {
+  const renderItem = ({ item }) => (
+    <TouchableOpacity
+      style={styles.item}
+      // onPress={() => navigation.navigate('FoodDetail', { food: item })}
+    >
+      <Text style={styles.name}>{item.name}</Text>
+      <Text style={styles.description}>{item.description}</Text>
+      <Text style={styles.price}>{item.price}</Text>
+    </TouchableOpacity>
+  );
+
   return (
     <View style={styles.container}>
-      <View>
-        <Text style={styles.mainText}>Header</Text>
-      </View>
-
-      <View>
-        <Text style={styles.label}>Nhập chiều cao cho (m)</Text>
-      </View>
+      <FlatList
+        data={foodData}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+      />
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    padding: 20,
+    paddingHorizontal: 16,
+    paddingTop: 16,
   },
-  mainText: {
-    marginTop: 20,
-    fontSize: 25,
-    fontWeight: "900",
+  item: {
+    backgroundColor: 'white',
+    padding: 16,
+    marginBottom: 16,
+    borderRadius: 8,
+    elevation: 2,
   },
-  content: {
-    alignItems: "flex-start",
-    width: "100%",
+  name: {
+    fontSize: 18,
+    fontWeight: 'bold',
   },
-  input: {
-    borderWidth: 1,
-    borderColor: "#bbb",
-    padding: 5,
-    borderRadius: 5,
-    width: "100%",
+  description: {
+    fontSize: 14,
+    color: 'gray',
   },
-  label: {
-    marginVertical: 10,
-  },
-  buttons: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: "100%",
-    marginTop: 20,
-  },
-  button: {
-    borderWidth: 1,
-    borderColor: "#000",
-    padding: 15,
-    borderRadius: 5,
-    backgroundColor: "pink",
-    width: "45%",
-    alignItems: "center",
+  price: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginTop: 8,
   },
 });
+
 export default Promotion;

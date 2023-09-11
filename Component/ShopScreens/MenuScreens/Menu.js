@@ -1,66 +1,49 @@
-import { useState } from "react";
-import {
-  View,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-} from "react-native";
+import React from 'react';
+import { View, Image, StyleSheet, Dimensions } from 'react-native';
+import Swiper from 'react-native-swiper';
 
+const { width } = Dimensions.get('window');
 
-const Menu = ({ navigation }) => {
+const images = [
+  'https://www.elle.vn/wp-content/uploads/2017/07/25/hinh-anh-dep-1.jpg',
+  'https://vapa.vn/wp-content/uploads/2022/12/anh-con-nguoi-dep-003.jpg',
+  'https://img.thuthuatphanmem.vn/uploads/2018/10/26/canh-dep-thien-nhien-con-nguoi-viet-nam_055419977.jpg',
+  // Thêm các URL ảnh khác vào đây
+];
+
+const Menu = () => {
   return (
     <View style={styles.container}>
-      <View>
-        <Text style={styles.mainText}>Header</Text>
-      </View>
-
-      <View>
-        <Text style={styles.label}>Nhập chiều cao cho (m)</Text>
-      </View>
+      <Swiper
+        style={styles.wrapper}
+        showsButtons={true} // Hiển thị nút Trái/Phải
+        autoplay={true}     // Tự động chuyển đổi ảnh
+      >
+        {images.map((imageUrl, index) => (
+          <View key={index} style={styles.slide}>
+            <Image source={{ uri: imageUrl }} style={styles.image} />
+          </View>
+        ))}
+      </Swiper>
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    padding: 20,
   },
-  mainText: {
-    marginTop: 20,
-    fontSize: 25,
-    fontWeight: "900",
+  wrapper: {},
+  slide: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  content: {
-    alignItems: "flex-start",
-    width: "100%",
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: "#bbb",
-    padding: 5,
-    borderRadius: 5,
-    width: "100%",
-  },
-  label: {
-    marginVertical: 10,
-  },
-  buttons: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: "100%",
-    marginTop: 20,
-  },
-  button: {
-    borderWidth: 1,
-    borderColor: "#000",
-    padding: 15,
-    borderRadius: 5,
-    backgroundColor: "pink",
-    width: "45%",
-    alignItems: "center",
+  image: {
+    width: width,
+    height: 300,
+    resizeMode: 'cover',
   },
 });
+
 export default Menu;
