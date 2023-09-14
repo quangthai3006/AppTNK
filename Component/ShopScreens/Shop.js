@@ -4,6 +4,7 @@ import Home from "./HomeScreens/Home";
 import Card from "./CardScreens/Card";
 import Menu from "./MenuScreens/Menu";
 import Promotion from "./PromotionScreens/Promotion";
+import Registration from '../RegistrationScreen/Registration';
 import { NavigationContainer } from '@react-navigation/native';
 import { Component } from 'react';
 
@@ -66,6 +67,19 @@ class Shop extends Component {
                 />
               ),
               tabBarBadge: 2, 
+            }}  />
+            <Tab.Screen name="Registration" component={Registration} options={{
+              headerShown: false,
+              tabBarLabel: 'Registration',
+              tabBarIcon: ({ focused }) => (
+                focused ? <Image 
+                style={styles.image} 
+                source={require('../../assets/shopping_cart_icon.png')} 
+                /> : <Image 
+                style={ {height: 20,width: 20}} 
+                source={require('../../assets/shopping_cart_icon.png')} 
+                />
+              ),
             }}  />
         </Tab.Navigator>
       </NavigationContainer>
