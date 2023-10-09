@@ -1,62 +1,128 @@
-import React from 'react';
-import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { Component } from "react";
+import {
+  View,
+  Image,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  Animated,
+  StyleSheet,
+} from "react-native";
 
-const foodData = [
-  { id: '1', name: 'Gà Rán', description: 'Gà Rán 2 miếng', price: '50,000đ' },
-  { id: '2', name: 'Burger', description: 'Burger gà', price: '45,000đ' },
-  { id: '3', name: 'Khoai Tây Chiên', description: 'Khoai tây', price: '20,000đ' },
-  // Thêm các món ăn khác vào đây
-];
+class Promotion extends Component {
+  constructor() {
+    super();
+    this.state = {
+      activeIndex: null,
+      zoomValue: new Animated.Value(1),
+    };
+  }
 
-const Promotion = ({ navigation }) => {
-  const renderItem = ({ item }) => (
-    <TouchableOpacity
-      style={styles.item}
-      // onPress={() => navigation.navigate('FoodDetail', { food: item })}
-    >
-      <Text style={styles.name}>{item.name}</Text>
-      <Text style={styles.description}>{item.description}</Text>
-      <Text style={styles.price}>{item.price}</Text>
-    </TouchableOpacity>
-  );
+  handleImagePress = (index) => {
+    const { activeIndex, zoomValue } = this.state;
 
-  return (
-    <View style={styles.container}>
-      <FlatList
-        data={foodData}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-      />
-    </View>
-  );
-};
+    if (activeIndex === index) {
+      Animated.timing(zoomValue, {
+        toValue: 1,
+        duration: 300,
+        useNativeDriver: false,
+      }).start(() => {
+        this.setState({ activeIndex: null });
+      });
+    } else {
+      this.setState({ activeIndex: index }, () => {
+        Animated.timing(zoomValue, {
+          toValue: 1.1,
+          duration: 300,
+          useNativeDriver: false,
+        }).start();
+      });
+    }
+  };
+
+  render() {
+    const { activeIndex, zoomValue } = this.state;
+
+    return (
+      <ScrollView contentContainerStyle={styles.container}>
+        {foodItems.map((item, index) => (
+          <View>
+            <TouchableOpacity
+              key={index}
+              onPress={() => this.handleImagePress(index)}
+              activeOpacity={0.8}
+            >
+              <Animated.View
+                style={[
+                  styles.imageContainer,
+                  activeIndex === index && {
+                    transform: [{ scale: zoomValue }],
+                    zIndex: 1,
+                  },
+                ]}
+              >
+                <Image source={item.image} style={styles.foodImage} />
+              </Animated.View>
+             
+            </TouchableOpacity>
+            <TouchableOpacity style={{marginLeft: 20, borderBottomLeftRadius: 10, borderBottomRightRadius: 10, borderWidth: 1}}>
+            <View style={styles.listFoodContent}>
+                <Text style={styles.listFoodText1}>Món Chính</Text>
+                <Image
+                  source={require("../../../assets/right_arrow_icon.png")}
+                  style={styles.welComeMainItem}
+                />
+              </View>
+            </TouchableOpacity>
+          </View>
+        ))}
+      </ScrollView>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 16,
-    paddingTop: 16,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
   },
-  item: {
-    backgroundColor: 'white',
-    padding: 16,
-    marginBottom: 16,
-    borderRadius: 8,
-    elevation: 2,
+  imageContainer: {
+    width: 150,
+    height: 150,
+    margin: 10,
+    borderWidth: 1,
+    borderColor: "#ccc",
+    overflow: "hidden", // Đảm bảo hình ảnh không tràn ra ngoài khung
+    borderTopStartRadius: 10,
+    borderTopEndRadius: 10, // Bo tròn góc của khung
+    shadowColor: "#000", // Màu đổ bóng
+    shadowOffset: { width: 0, height: 2 }, // Độ dịch của đổ bóng
+    shadowOpacity: 0.8, // Độ trong suốt của đổ bóng
+    shadowRadius: 4, // Bán kính của đổ bóng
+    elevation: 5, // Độ cao của đổ bóng trên Android
   },
-  name: {
-    fontSize: 18,
-    fontWeight: 'bold',
+  foodImage: {
+    width: "100%", // Đảm bảo hình ảnh lấp đầy khung
+    height: "100%",
   },
-  description: {
-    fontSize: 14,
-    color: 'gray',
+  listFoodContent: {
+    flex: 1,
+    flexDirection: "row",
   },
-  price: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginTop: 8,
+  welComeMainItem: {
+    width: 20,
+    height: 20,
+    marginLeft: 10,
   },
 });
+
+const foodItems = [
+  { image: require("../../../assets/Burger-Shrimp.jpg") },
+  { image: require("../../../assets/COM.jpg") },
+  // { image: require('./images/food3.jpg') },
+  // Thêm các món ăn khác vào đây với các hình ảnh tương ứng
+];
 
 export default Promotion;

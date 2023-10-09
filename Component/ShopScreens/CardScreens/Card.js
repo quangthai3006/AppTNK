@@ -1,114 +1,250 @@
-// import { useState } from "react";
+// import React, { Component } from "react";
 // import {
 //   View,
-//   StyleSheet,
 //   Text,
-//   TextInput,
+//   Image,
+//   ScrollView,
 //   TouchableOpacity,
+//   Animated,
+//   StyleSheet,
 // } from "react-native";
 
-// const Card = ({ navigation }) => {
-//   return (
-//     <View style={styles.container}>
-//       <View>
-//         <Text style={styles.mainText}>Header</Text>
-//       </View>
+// class Card extends Component {
+//   constructor() {
+//     super();
+//     this.state = {
+//       activeIndex: null,
+//       zoomValue: new Animated.Value(1),
+//     };
+//   }
 
-//       <View>
-//         <Text style={styles.label}>Nhập chiều cao cho (m)</Text>
-//       </View>
-//     </View>
-//   );
-// };
+//   handleImagePress = (index) => {
+//     const { activeIndex, zoomValue } = this.state;
+
+//     if (activeIndex === index) {
+//       // Nếu chạm vào ảnh đã phóng to, thu nhỏ nó
+//       Animated.timing(zoomValue, {
+//         toValue: 1,
+//         duration: 300,
+//         useNativeDriver: false,
+//       }).start(() => {
+//         this.setState({ activeIndex: null });
+//       });
+//     } else {
+//       // Nếu chạm vào ảnh mới, phóng to nó
+//       this.setState({ activeIndex: index }, () => {
+//         Animated.timing(zoomValue, {
+//           toValue: 1.1,
+//           duration: 300,
+//           useNativeDriver: false,
+//         }).start();
+//       });
+//     }
+//   };
+
+//   render() {
+//     const { activeIndex, zoomValue } = this.state;
+
+//     return (
+//       <ScrollView contentContainerStyle={styles.container}>
+//         {foodItems.map((item, index) => (
+//           <TouchableOpacity
+//             key={index}
+//             onPress={() => this.handleImagePress(index)}
+//             activeOpacity={0.8}
+//             style={{borderWidth: 1, borderColor: "#ccc", borderRadius: 6, height: 190, width: 180}}
+//           >
+//             <Animated.Image
+//               source={item.image}
+//               style={[
+//                 styles.foodImage,
+//                 activeIndex === index && {
+//                   transform: [{ scale: zoomValue }],
+//                   zIndex: 1,
+//                 },
+//               ]}
+//             />
+//             <View style={styles.listFoodContent}>
+//               <Text style={styles.listFoodText1}>Món Chính</Text>
+//               <Image
+//                 source={require("../../../assets/right_arrow_icon.png")}
+//                 style={styles.welComeMainItem}
+//               />
+//             </View>
+//           </TouchableOpacity>
+//         ))}
+//       </ScrollView>
+//     );
+//   }
+// }
+
 // const styles = StyleSheet.create({
 //   container: {
 //     flex: 1,
-//     backgroundColor: "#fff",
-//     alignItems: "center",
-//     padding: 20,
-//   },
-//   mainText: {
-//     marginTop: 20,
-//     fontSize: 25,
-//     fontWeight: "900",
-//   },
-//   content: {
-//     alignItems: "flex-start",
-//     width: "100%",
-//   },
-//   input: {
-//     borderWidth: 1,
-//     borderColor: "#bbb",
-//     padding: 5,
-//     borderRadius: 5,
-//     width: "100%",
-//   },
-//   label: {
-//     marginVertical: 10,
-//   },
-//   buttons: {
 //     flexDirection: "row",
-//     justifyContent: "space-between",
-//     width: "100%",
-//     marginTop: 20,
+//     flexWrap: "wrap",
+//     justifyContent: "center",
 //   },
-//   button: {
-//     borderWidth: 1,
-//     borderColor: "#000",
-//     padding: 15,
-//     borderRadius: 5,
-//     backgroundColor: "pink",
-//     width: "45%",
-//     alignItems: "center",
+//   foodImage: {
+//     width: 150,
+//     height: 150,
+//     margin: 10,
+//     // borderWidth: 1,
+//     // borderColor: "#ccc",
+//     // borderRadius: 6,
+//   },
+//   listFoodImage: {
+//     flex: 2,
+//     width: "50%",
+//     height: 150,
+//   },
+//   listFoodContent: {
+//     flex: 1,
+//     flexDirection: "row",
+//   },
+//   welComeMainItem: {
+//     width: 20,
+//     height: 20,
+//     marginLeft: 10,
+//   },
+//   listFoodText1: {
+//     // color: "red",
 //   },
 // });
+
+// const foodItems = [
+//   { image: require("../../../assets/COM.jpg") },
+//   { image: require("../../../assets/Burger-Shrimp.jpg") },
+//   // { image: require("../../../assets/eye.png") },
+//   // Thêm các món ăn khác vào đây với các hình ảnh tương ứng
+// ];
+
 // export default Card;
+import React, { useState } from "react";
+import { TouchableOpacity, View, Image, Text, StyleSheet } from "react-native";
 
-import Checkbox from 'expo-checkbox';
-import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+const Card = ({ navigation }) => {
+  const [isZoomed, setIsZoomed] = useState(false);
 
-export default function Card() {
-  const [isChecked, setChecked] = useState(false);
+  const handlePress = () => {
+    setIsZoomed(!isZoomed);
+  };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.section}>
-        <Checkbox style={styles.checkbox} value={isChecked} onValueChange={setChecked} />
-        <Text style={styles.paragraph}>Normal checkbox</Text>
+    <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
+      <View onPress={handlePress} style={styles.container}>
+        <View
+          style={isZoomed ? styles.imageContainerZoomed : styles.imageContainer}
+        >
+          <Image
+            source={require("../../../assets/Burger-Shrimp.jpg")}
+            style={isZoomed ? styles.imageZoomed : styles.image}
+          />
+        </View>
+        <View>
+          <Text style={styles.foodName}>Món ăn mới</Text>
+        </View>
       </View>
-      <View style={styles.section}>
-        <Checkbox
-          style={styles.checkbox}
-          value={isChecked}
-          onValueChange={setChecked}
-          color={isChecked ? '#4630EB' : undefined}
-        />
-        <Text style={styles.paragraph}>Custom colored checkbox</Text>
-      </View>
-      <View style={styles.section}>
-        <Checkbox style={styles.checkbox} disabled value={isChecked} onValueChange={setChecked} />
-        <Text style={styles.paragraph}>Disabled checkbox</Text>
-      </View>
+
+      <TouchableOpacity style={styles.container}>
+        <View style={styles.imageContainer}>
+          <Image
+            source={require("../../../assets/Burger-Shrimp.jpg")}
+            style={styles.image}
+          />
+        </View>
+        <View
+          style={{
+            width: 160,
+            height: 40,
+            backgroundColor: "white",
+            borderLeftWidth: 1,
+            borderRightWidth: 1,
+            borderBottomWidth: 1,
+            borderColor: "#ccc",
+            overflow: "hidden", // Đảm bảo hình ảnh không tràn ra ngoài khung
+            borderBottomRightRadius: 10,
+            borderBottomLeftRadius: 10, // Bo tròn góc của khung
+            shadowColor: "#000", // Màu đổ bóng
+            // shadowOffset: { width: 0, height: 2 }, // Độ dịch của đổ bóng
+            shadowOpacity: 0.8, // Độ trong suốt của đổ bóng
+            // // shadowRadius: 4, // Bán kính của đổ bóng
+            elevation: 5,
+            flexDirection: "row",
+          }}
+        >
+          <Text style={styles.foodName}>Món ăn mới</Text>
+          <Image
+            source={require("../../../assets/right_arrow_icon.png")}
+            style={styles.welComeMainItem}
+          />
+        </View>
+      </TouchableOpacity>
+
+      
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    marginHorizontal: 16,
-    marginVertical: 32,
+    alignItems: "center",
   },
-  section: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  imageContainer: {
+    width: 160,
+    height: 130,
+    borderTopWidth: 1,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderColor: "#ccc",
+    overflow: "hidden", // Đảm bảo hình ảnh không tràn ra ngoài khung
+    borderTopStartRadius: 10,
+    borderTopEndRadius: 10, // Bo tròn góc của khung
+    shadowColor: "#000", // Màu đổ bóng
+    // shadowOffset: { width: 0, height: 2 }, // Độ dịch của đổ bóng
+    shadowOpacity: 0.8, // Độ trong suốt của đổ bóng
+    // // shadowRadius: 4, // Bán kính của đổ bóng
+    // elevation: 5, // Độ cao của đổ bóng trên Android
   },
-  paragraph: {
-    fontSize: 15,
+  imageContainerZoomed: {
+    width: 190,
+    height: 160,
+    margin: 10,
+    borderTopWidth: 1,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
+    borderColor: "#ccc",
+    overflow: "hidden", // Đảm bảo hình ảnh không tràn ra ngoài khung
+    borderTopStartRadius: 10,
+    borderTopEndRadius: 10, // Bo tròn góc của khung
+    shadowColor: "#000", // Màu đổ bóng
+    // shadowOffset: { width: 0, height: 2 }, // Độ dịch của đổ bóng
+    shadowOpacity: 0.8, // Độ trong suốt của đổ bóng
   },
-  checkbox: {
-    margin: 8,
+  image: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
+  },
+  imageZoomed: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "contain",
+  },
+  foodName: {
+    marginTop: 10,
+    fontSize: 16,
+  },
+  listFoodContent: {
+    // flex: 1,
+    flexDirection: "row",
+  },
+  welComeMainItem: {
+    width: 20,
+    height: 20,
+    marginLeft: 10,
+    marginTop: 10,
   },
 });
 
+export default Card;

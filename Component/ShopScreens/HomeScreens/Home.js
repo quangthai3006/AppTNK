@@ -2,6 +2,7 @@ import { useState } from "react";
 import Swiper from "react-native-swiper";
 import Header from "../../HeaderScreen/Header";
 import { styles } from "./StylesHome";
+// import Lightbox from 'react-native-lightbox';
 import {
   View,
   StyleSheet,
@@ -11,6 +12,7 @@ import {
   ScrollView,
   TouchableOpacity,
   Dimensions,
+  TouchableWithoutFeedback,
 } from "react-native";
 
 // const { width } = Dimensions.get("window");
@@ -21,11 +23,17 @@ const images = [
   "https://static.kfcvietnam.com.vn/images/items/lg/duasori-d.jpg?v=gbw2Z3",
 ];
 const Home = ({ navigation }) => {
-  return (
+  const [isChecked, setChecked] = useState(false);
+  // const handZoom = () => {
+  //   if(isChecked){
+  //     setChecked = true
 
+  //   }
+  // }
+  return (
     // Header
     <View style={styles.container}>
-     <Header/>
+      <Header />
 
       {/* Contact */}
       <ScrollView>
@@ -77,7 +85,7 @@ const Home = ({ navigation }) => {
                   </TouchableOpacity>
                   <Image
                     source={require("../../../assets//arrow_right_icon.png")}
-                    style={styles.welComeMainItem}
+                    style={styles.welComeMainItem1}
                   />
                 </View>
               </View>
@@ -107,41 +115,104 @@ const Home = ({ navigation }) => {
             <View style={styles.listFoodSoc}></View>
           </View>
           <View style={styles.list}>
-            <View style={styles.listFoodContentFather}>
-              <View>
+            <TouchableOpacity style={styles.container}>
+              <View style={styles.imageContainer}>
                 <Image
-                  source={require("../../../assets/COM.jpg")}
-                  style={styles.listFoodImage}
+                  source={require("../../../assets/KHUYEN_MAI.jpg")}
+                  style={styles.image}
                 />
               </View>
-              <TouchableOpacity style={styles.listFoodTouchableOpacity}>
-                <View style={styles.listFoodContent}>
-                  <Text style={styles.listFoodText1}>Món Chính</Text>
-                  <Image
-                    source={require("../../../assets/right_arrow_icon.png")}
-                    style={styles.welComeMainItem}
-                  />
-                </View>
-              </TouchableOpacity>
-            </View>
+              <View style={styles.contentContainer}>
+                <Text style={styles.foodName}>Ưu đãi</Text>
+                <Image
+                  source={require("../../../assets/right_arrow_icon.png")}
+                  style={styles.welComeMainItem}
+                />
+              </View>
+            </TouchableOpacity>
 
-            <View style={styles.listFoodContentFather}>
-              <View>
+            <TouchableOpacity style={styles.container}>
+              <View style={styles.imageContainer}>
                 <Image
-                  source={require("../../../assets/COM.jpg")}
-                  style={styles.listFoodImage}
+                  source={require("../../../assets/MON_MOI.jpg")}
+                  style={styles.image}
                 />
               </View>
-              <TouchableOpacity style={styles.listFoodTouchableOpacity}>
-                <View style={styles.listFoodContent}>
-                  <Text style={styles.listFoodText1}>Món Chính</Text>
-                  <Image
-                    source={require("../../../assets/right_arrow_icon.png")}
-                    style={styles.welComeMainItem}
-                  />
-                </View>
-              </TouchableOpacity>
-            </View>
+              <View style={styles.contentContainer}>
+                <Text style={styles.foodName}>Món mới</Text>
+                <Image
+                  source={require("../../../assets/right_arrow_icon.png")}
+                  style={styles.welComeMainItem}
+                />
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.list}>
+            <TouchableOpacity style={styles.container}>
+              <View style={styles.imageContainer}>
+                <Image
+                  source={require("../../../assets/GA.jpg")}
+                  style={styles.image}
+                />
+              </View>
+              <View style={styles.contentContainer}>
+                <Text style={styles.foodName}>Gà Rán - Gà Quay</Text>
+                <Image
+                  source={require("../../../assets/right_arrow_icon.png")}
+                  style={styles.welComeMainItem}
+                />
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.container}>
+              <View style={styles.imageContainer}>
+                <Image
+                  source={require("../../../assets/COM.jpg")}
+                  style={styles.image}
+                />
+              </View>
+              <View style={styles.contentContainer}>
+                <Text style={styles.foodName}>Burger - Cơm</Text>
+                <Image
+                  source={require("../../../assets/right_arrow_icon.png")}
+                  style={styles.welComeMainItem}
+                />
+              </View>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.list}>
+            <TouchableOpacity style={styles.container}>
+              <View style={styles.imageContainer}>
+                <Image
+                  source={require("../../../assets/GA.jpg")}
+                  style={styles.image}
+                />
+              </View>
+              <View style={styles.contentContainer}>
+                <Text style={styles.foodName}>Gà Rán - Gà Quay</Text>
+                <Image
+                  source={require("../../../assets/right_arrow_icon.png")}
+                  style={styles.welComeMainItem}
+                />
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.container}>
+              <View style={styles.imageContainer}>
+                <Image
+                  source={require("../../../assets/COM.jpg")}
+                  style={styles.image}
+                />
+              </View>
+              <View style={styles.contentContainer}>
+                <Text style={styles.foodName}>Burger - Cơm</Text>
+                <Image
+                  source={require("../../../assets/right_arrow_icon.png")}
+                  style={styles.welComeMainItem}
+                />
+              </View>
+            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
@@ -151,4 +222,38 @@ const Home = ({ navigation }) => {
 
 export default Home;
 
+// <TouchableOpacity style={styles.listFoodContentFather}>
+//               <View>
+//                 <Image
+//                   source={require("../../../assets/COM.jpg")}
+//                   style={styles.listFoodImage}
+//                 />
+//               </View>
+//               <View style={styles.listFoodTouchableOpacity}>
+//                 <View style={styles.listFoodContent}>
+//                   <Text style={styles.listFoodText1}>Món Chính</Text>
+//                   <Image
+//                     source={require("../../../assets/right_arrow_icon.png")}
+//                     style={styles.welComeMainItem}
+//                   />
+//                 </View>
+//               </View>
+//             </TouchableOpacity>
 
+//             <View style={styles.listFoodContentFather}>
+//               <View>
+//                 <Image
+//                   source={require("../../../assets/COM.jpg")}
+//                   style={styles.listFoodImage}
+//                 />
+//               </View>
+//               <TouchableOpacity style={styles.listFoodTouchableOpacity}>
+//                 <View style={styles.listFoodContent}>
+//                   <Text style={styles.listFoodText1}>Món Chính</Text>
+//                   <Image
+//                     source={require("../../../assets/right_arrow_icon.png")}
+//                     style={styles.welComeMainItem}
+//                   />
+//                 </View>
+//               </TouchableOpacity>
+//             </View>
