@@ -3,7 +3,7 @@ import { styles } from "./StylesRegistration";
 import Checkbox from "expo-checkbox";
 import Home from "../ShopScreens/HomeScreens/Home";
 import { registerApi } from "../../Services/authentication";
-import { validateEmail } from "./ValiDateEmail";
+// import { validateEmail } from "./ValiDateEmail";
 
 import {
   View,
@@ -18,6 +18,8 @@ import {
 } from "react-native";
 import Header from "../HeaderScreen/Header";
 import Card from "../ShopScreens/CardScreens/Card";
+import { validateEmail, validateName, validatePassWord } from "../../ultils/validates"
+import { listRegisterApi, listRegisterApi1 } from "../../Services/RegisterLogin/authentication";
 
 const Registration = ({ navigation }) => {
   const [name, setName] = useState("");
@@ -27,31 +29,33 @@ const Registration = ({ navigation }) => {
   const [isChecked, setChecked] = useState(false);
 
   const register = async () => {
-  //   if(password != rePassword) {
-  //     return alert("Mật khẩu không khớp")
-  // }
+    //   if(password != rePassword) {
+    //     return alert("Mật khẩu không khớp")
+    // }
 
-     if(!validateEmail(email)) {
-      return alert("Email không hợp lệ")
-     }
+    if (
+      validateName(name) &&
+      validateEmail(email) &&
+      validatePassWord(password)
+    ) {
+      try {
+        const registerResponse = await listRegisterApi1({
+          name,
+          email,
+          password,
+        });
 
-    try {
-      const registerResponse = await registerApi({
-        name,
-        email,
-        password,
-      });
-      console.log(registerResponse);
-
-      
-      navigation.navigate("Card");
-      const {name, email, password} = registerResponse;
-    } catch (err) {
-      // alert(err.response?.data?.message || "Lỗi không xác định");
-      // alert(err.response?.data?.message);
-
-      console.error(err);
-      alert("Lỗi")
+        const { data } = registerResponse;
+        alert("Tạo tài khoản thành công!");
+        navigation.navigate("Card");
+      } catch (err) {
+        // alert(err.response?.data?.message || "Lỗi không xác định");
+        // alert(err.response?.data?.message);
+        const message = err.response
+        alert(message)
+        // console.error(err);
+        // alert("Lỗi");
+      }
     }
   };
   const handEye = () => {
@@ -99,17 +103,23 @@ const Registration = ({ navigation }) => {
             <TextInput placeholder="Họ của bạn *" />
           </View> */}
           <View style={styles.viewBorderTextInput}>
-            <TextInput placeholder="Tên của bạn *" onChangeText={(value) => {
-                setName(value)
-            }} />
+            <TextInput
+              placeholder="Tên của bạn *"
+              onChangeText={(value) => {
+                setName(value);
+              }}
+            />
           </View>
           {/* <View style={styles.viewBorderTextInput}>
             <TextInput placeholder="Số điện thoại *" />
           </View> */}
           <View style={styles.viewBorderTextInput}>
-            <TextInput placeholder="Địa chỉ Email *" onChangeText={(value) => {
-                setEmail(value)
-            }}/>
+            <TextInput
+              placeholder="Địa chỉ Email *"
+              onChangeText={(value) => {
+                setEmail(value);
+              }}
+            />
           </View>
           <View style={styles.viewBorderTextInput}>
             <View
@@ -119,8 +129,8 @@ const Registration = ({ navigation }) => {
                 placeholder="Mật khẩu *"
                 secureTextEntry={secureTextEntry}
                 onChangeText={(value) => {
-                setPassword(value)
-            }}
+                  setPassword(value);
+                }}
               />
               {renderEyeIcon()}
             </View>

@@ -7,34 +7,49 @@ import Menu from "./MenuScreens/Menu";
 import Promotion from "./PromotionScreens/Promotion";
 import Registration from "../RegistrationScreen/Registration";
 import NewDish from "./MenuScreens/NewDish/NewDish";
+import Chicken from "./MenuScreens/GaRanGaQuay/Chicken";
+import Burger from "./MenuScreens/BurgerComMiY/Burger";
+import ProductDetails from "./ProductDetails/ProductDetails";
 import { NavigationContainer } from "@react-navigation/native";
-import { Component } from "react";
+import { Component, useState } from "react";
 
 const Tab = createBottomTabNavigator();
 const Tab1 = createMaterialTopTabNavigator();
 
 StatusBar.setHidden(true);
 
-export const TopTabs = () => {
+export const TopTabs = ({ data, search, handleSearch }) => {
   return (
     // <NavigationContainer>
-      <Tab1.Navigator
-        initialRouteName="NewDish"
-        tabBarOptions={{
-          scrollEnabled: true, // Cho phép cuộn tab nếu nó quá nhiều
+    <Tab1.Navigator
+      style={{ paddingBottom: 10 }}
+      initialRouteName="NewDish"
+      // tabBarOptions={{
+      //   scrollEnabled: true, // Cho phép cuộn tab nếu nó quá nhiều
+      // }}
+      tabBarPosition="top" // Đặt thanh điều hướng ở vị trí bên trên
+      screenOptions={({ route }) => ({
+        swipeEnabled: true,
+        tabBarScrollEnabled: true,
+      })} // Cho phép người dùng lướt giữa các tab
+    >
+      <Tab1.Screen name="NewDish" component={NewDish} />
+      <Tab1.Screen
+        name="Gà Rán - Gà Quay"
+        component={Chicken}
+        options={{
+          title: "Gà Rán - Gà Quay",
         }}
-        swipeEnabled={true} // Cho phép người dùng lướt giữa các tab
-        tabBarPosition="top" // Đặt thanh điều hướng ở vị trí bên trên
-      >
-        <Tab1.Screen name="NewDish" component={NewDish} />
-        <Tab1.Screen name="Card" component={Card} />
-        <Tab1.Screen name="Promotion" component={Promotion} />
-      </Tab1.Navigator>
+      />
+      <Tab1.Screen name="Burger - Cơm - Mì" component={Burger} />
+    </Tab1.Navigator>
+    
     // </NavigationContainer>
   );
 };
-class Shop extends Component {
-  render() {
+const Shop = ({ navigation }) =>  {
+  const [count, setCount] = useState()
+  // render() {
     return (
       <NavigationContainer>
         <Tab.Navigator>
@@ -116,7 +131,7 @@ class Shop extends Component {
                     source={require("../../assets/shopping_cart_icon.png")}
                   />
                 ),
-              tabBarBadge: 2,
+              tabBarBadge: count,
             }}
           />
           <Tab.Screen
@@ -139,11 +154,31 @@ class Shop extends Component {
                 ),
             }}
           />
+          <Tab.Screen
+            name="ProductDetails"
+            component={ProductDetails}
+            options={{
+              headerShown: false,
+              tabBarLabel: "ProductDetails",
+              tabBarIcon: ({ focused }) =>
+                focused ? (
+                  <Image
+                    style={styles.image}
+                    source={require("../../assets/shopping_cart_icon.png")}
+                  />
+                ) : (
+                  <Image
+                    style={{ height: 20, width: 20 }}
+                    source={require("../../assets/shopping_cart_icon.png")}
+                  />
+                ),
+            }}
+          />
         </Tab.Navigator>
       </NavigationContainer>
     );
   }
-}
+// }
 
 // const Shop = (navigation) => {
 

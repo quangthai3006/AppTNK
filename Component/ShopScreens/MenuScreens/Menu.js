@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   TextInput,
@@ -17,24 +17,58 @@ import Card from "../CardScreens/Card";
 import Promotion from "../PromotionScreens/Promotion";
 import { TopTabs } from "../Shop";
 export default function Menu() {
+  const [search, setSearch] = useState()
+  const [data, setData] = useState([])
+  const getTaskData = async () => {
+    setIsLoading(true);
+    try {
+      const listTasksResponse = await listApi();
+      if (listTasksResponse && listTasksResponse.data) {
+        const { data } = listTasksResponse;
+        console.log(data);
+        setData(data.items);
+      } else {
+        console.error("API response is invalid:", listTasksResponse);
+      }
+    } catch (err) {
+      const errorMessage = err.response.data;
+      alert(errorMessage);
+    }
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    getTaskData();
+  }, []);
+  const handleSearch = (data, search) => {
+    // console.log(data)
+    // console.log(search)
+
+    // const searchResult = data.filter((item) => item.diaChi === search);
+    // // Xử lý kết quả tìm kiếm, ví dụ: in ra console
+    // console.log(searchResult);
+  };
   return (
     <View style={styles.container}>
       <Header />
-      <View style={styles.body}>
-        <View style={styles.bodySearch}>
-          <TouchableOpacity>
-            <Image
-              source={require("../../../assets/search_strong_icon.png")}
-              style={{ width: 20, height: 20, marginLeft: 10 }}
-            />
-          </TouchableOpacity>
-          <TextInput
-            placeholder="Tìm kiếm món ăn"
-            onChangeText={(name) => setName(name)}
-          />
-        </View>
-      </View>
-      <TopTabs />
+     
+      <TopTabs data={data} search={search} handleSearch={() => {handleSearch(data, search)}} />
+      
     </View>
   );
 }
+
+{/* <View style={styles.body}>
+<View style={styles.bodySearch}>
+  <TouchableOpacity onPress={() => {handleSearch(data, search)}}>
+    <Image
+      source={require("../../../assets/search_strong_icon.png")}
+      style={{ width: 20, height: 20, marginLeft: 10 }}
+    />
+  </TouchableOpacity>
+  <TextInput
+    placeholder="Tìm kiếm món ăn"
+    onChangeText={(search) => setSearch(search)}
+  />
+</View>
+</View> */}

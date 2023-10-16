@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getAllUrl, getDataUrl } from "./api";
+import { getAllUrl, getDataUrl,getDataUrl1, getId, getAllMock, getIdMock, deleteMock } from "./api";
 import { FoodItem } from "./interface";
 
 // export const registerApi = ({
@@ -31,6 +31,34 @@ export const listFoodItemApi = () => {
 export const listApi = () => {
     return axios({
         method: "GET",
-        url: getDataUrl
+        url: getDataUrl1
+    })
+}
+
+export const getIdApi = (id: string) => {
+    return axios({
+        method: "GET",
+        url: getId.concat(id)
+    })
+}
+
+export const getAllMockApi = () => {
+    return axios({
+        method: 'GET',
+        url: getAllMock
+    })
+}
+
+export const getIdMockApi = (id: string) => {
+    return axios({
+        method: "GET",
+        url: getIdMock.concat(id)
+    })
+}
+
+export const DeleteMockApi = (id: string) => {
+    return axios({
+        method: "DELETE",
+        url: deleteMock.concat(id)
     })
 }

@@ -115,7 +115,7 @@ const Home = ({ navigation }) => {
             <View style={styles.listFoodSoc}></View>
           </View>
           <View style={styles.list}>
-            <TouchableOpacity style={styles.container}>
+            <TouchableOpacity>
               <View style={styles.imageContainer}>
                 <Image
                   source={require("../../../assets/KHUYEN_MAI.jpg")}
@@ -131,7 +131,7 @@ const Home = ({ navigation }) => {
               </View>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.container}>
+            <TouchableOpacity>
               <View style={styles.imageContainer}>
                 <Image
                   source={require("../../../assets/MON_MOI.jpg")}
@@ -148,7 +148,7 @@ const Home = ({ navigation }) => {
             </TouchableOpacity>
           </View>
           <View style={styles.list}>
-            <TouchableOpacity style={styles.container}>
+            <TouchableOpacity>
               <View style={styles.imageContainer}>
                 <Image
                   source={require("../../../assets/GA.jpg")}
@@ -164,7 +164,7 @@ const Home = ({ navigation }) => {
               </View>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.container}>
+            <TouchableOpacity>
               <View style={styles.imageContainer}>
                 <Image
                   source={require("../../../assets/COM.jpg")}
@@ -182,7 +182,7 @@ const Home = ({ navigation }) => {
           </View>
 
           <View style={styles.list}>
-            <TouchableOpacity style={styles.container}>
+            <TouchableOpacity>
               <View style={styles.imageContainer}>
                 <Image
                   source={require("../../../assets/GA.jpg")}
@@ -198,7 +198,7 @@ const Home = ({ navigation }) => {
               </View>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.container}>
+            <TouchableOpacity>
               <View style={styles.imageContainer}>
                 <Image
                   source={require("../../../assets/COM.jpg")}

@@ -107,20 +107,18 @@ export const styles = StyleSheet.create({
   },
   listFood: {
     marginTop: 50,
-    // margin: 10,
+    margin: 10,
   },
   list: {
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: 20,
-    // marginLeft: 10
   },
 
   listFoodTitle: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    // marginRight: 9
   },
   listFoodText: {
     fontSize: 20,

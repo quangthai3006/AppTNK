@@ -7,17 +7,17 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-import { styles } from "./StylesNewDish";
-import ProductDetails from "../../ProductDetails/ProductDetails";
 import {
   listFoodItemApi,
   listApi,
   getAllMockApi,
 } from "../../../../Services/FoodDetails/authentication";
+import { styles } from "./StylesBurger";
+import ProductDetails from "../../ProductDetails/ProductDetails";
 
-export default function NewDish({ navigation }) {
-  const [isLoading, setIsLoading] = useState(false);
+export default function Burger({ navigation }) {
   const [isTym, setTym] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [task, setData] = useState([]);
   const [search, setSearch] = useState();
 
@@ -44,10 +44,10 @@ export default function NewDish({ navigation }) {
   }, []);
 
   const renderTask = ({ item }) => {
-    if (item.category === "NewDish") {
+    if (item.category === "Burger") {
       return (
         <TouchableOpacity
-          style={{ marginBottom: 15, flex: 1 }}
+          style={{ marginBottom: 15 }}
           //   onPress={() => {
           //     navigation.navigate("DetailTaskScreen", { taskId: item.id });
           //   }}
@@ -61,23 +61,11 @@ export default function NewDish({ navigation }) {
                 />
               </TouchableOpacity>
               <View style={styles.containerChild}>
-                <View style={{ flexDirection: "row"}}>
-                  <Text
-                    numberOfLines={2}
-                    style={{
-                      fontSize: 15,
-                      fontWeight: "700",
-                      flexWrap: "wrap",
-                      flex: 1,
-                    }}
-                  >
+                <View style={{ flexDirection: "row" }}>
+                  <Text style={{ fontSize: 15, fontWeight: "700" }}>
                     {item.name}
                   </Text>
-                  <TouchableOpacity
-                    style={{ flex: 1}}
-                    value={isTym}
-                    onPress={handleClickTym}
-                  >
+                  <TouchableOpacity onPress={handleClickTym}>
                     {isTym ? (
                       <Image
                         source={require("../../../../assets/like_color_icon.png")}
@@ -94,16 +82,7 @@ export default function NewDish({ navigation }) {
                 <Text style={{ fontWeight: "700", marginVertical: 6 }}>
                   {item.price}
                 </Text>
-                <Text
-                    numberOfLines={3}
-                    ellipsizeMode="tail"
-                    style={{
-                      flexWrap: "wrap",
-                      // flex: 1,
-                    }}
-                  >
-                    {item.description}
-                  </Text>
+                <Text>{item.description}</Text>
               </View>
             </View>
             <TouchableOpacity
@@ -122,7 +101,6 @@ export default function NewDish({ navigation }) {
 
   const handleClickTym = () => {
     setTym(!isTym);
-    setIsLoading(!isLoading);
   };
 
   const handleSearch = (task, search) => {
@@ -161,7 +139,7 @@ export default function NewDish({ navigation }) {
           </View>
         </View>
         <View style={styles.header}>
-          <Text style={styles.headerContent}>MÓN MỚI</Text>
+          <Text style={styles.headerContent}>BURGER - CƠM - MÌ Ý</Text>
         </View>
 
         <FlatList
@@ -175,36 +153,3 @@ export default function NewDish({ navigation }) {
     </View>
   );
 }
-//  <View style={styles.content}>
-// <View style={styles.contentImage}>
-//   <TouchableOpacity>
-//     <Image
-//       source={require("../../../../assets/pepsi-zero.jpg")}
-//       style={{ width: 90, height: 90 }}
-//     />
-//   </TouchableOpacity>
-//   <View style={styles.containerChild}>
-//     <View style={{ flexDirection: "row" }}>
-//       <Text style={{ fontSize: 15, fontWeight: "700" }}>
-//         Pepsi Không Calo Lon
-//       </Text>
-//       <TouchableOpacity value={isTym} onPress={handleClickTym}>
-//        {isTym ?  <Image
-//           source={require("../../../../assets/like_color_icon.png")}
-//           style={{ width: 25, height: 25, marginLeft: 20 }}
-//         /> :  <Image
-//           source={require("../../../../assets/like_notification_icon.png")}
-//           style={{ width: 25, height: 25, marginLeft: 20 }}
-//         />}
-//       </TouchableOpacity>
-//     </View>
-//     <Text style={{ fontWeight: "700", marginVertical: 6 }}>
-//       17.000đ
-//     </Text>
-//     <Text>Pepsi Không Calo Lon</Text>
-//   </View>
-// </View>
-// <TouchableOpacity style={styles.contentButton}>
-//   <Text style={styles.contentButtonText}>Thêm</Text>
-// </TouchableOpacity>
-// </View>
