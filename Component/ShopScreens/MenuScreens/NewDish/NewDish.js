@@ -6,6 +6,7 @@ import {
   Text,
   TouchableOpacity,
   Image,
+  ScrollView,
 } from "react-native";
 import { styles } from "./StylesNewDish";
 import ProductDetails from "../../ProductDetails/ProductDetails";
@@ -61,7 +62,7 @@ export default function NewDish({ navigation }) {
                 />
               </TouchableOpacity>
               <View style={styles.containerChild}>
-                <View style={{ flexDirection: "row"}}>
+                <View style={{ flexDirection: "row" }}>
                   <Text
                     numberOfLines={2}
                     style={{
@@ -74,7 +75,7 @@ export default function NewDish({ navigation }) {
                     {item.name}
                   </Text>
                   <TouchableOpacity
-                    style={{ flex: 1}}
+                    style={{ flex: 1 }}
                     value={isTym}
                     onPress={handleClickTym}
                   >
@@ -95,15 +96,15 @@ export default function NewDish({ navigation }) {
                   {item.price}
                 </Text>
                 <Text
-                    numberOfLines={3}
-                    ellipsizeMode="tail"
-                    style={{
-                      flexWrap: "wrap",
-                      // flex: 1,
-                    }}
-                  >
-                    {item.description}
-                  </Text>
+                  numberOfLines={3}
+                  ellipsizeMode="tail"
+                  style={{
+                    flexWrap: "wrap",
+                    // flex: 1,
+                  }}
+                >
+                  {item.description}
+                </Text>
               </View>
             </View>
             <TouchableOpacity
@@ -141,37 +142,39 @@ export default function NewDish({ navigation }) {
   };
   return (
     <View style={styles.container}>
-      <View style={styles.containerChild}>
-        <View style={styles.body}>
-          <View style={styles.bodySearch}>
-            <TouchableOpacity
-              onPress={() => {
-                handleSearch(task, search);
-              }}
-            >
-              <Image
-                source={require("../../../../assets/search_strong_icon.png")}
-                style={{ width: 20, height: 20, marginLeft: 10 }}
+      <ScrollView>
+        <View style={styles.containerChild}>
+          <View style={styles.body}>
+            <View style={styles.bodySearch}>
+              <TouchableOpacity
+                onPress={() => {
+                  handleSearch(task, search);
+                }}
+              >
+                <Image
+                  source={require("../../../../assets/search_strong_icon.png")}
+                  style={{ width: 20, height: 20, marginLeft: 10 }}
+                />
+              </TouchableOpacity>
+              <TextInput
+                placeholder="Tìm kiếm món ăn"
+                onChangeText={(search) => setSearch(search)}
               />
-            </TouchableOpacity>
-            <TextInput
-              placeholder="Tìm kiếm món ăn"
-              onChangeText={(search) => setSearch(search)}
-            />
+            </View>
           </View>
-        </View>
-        <View style={styles.header}>
-          <Text style={styles.headerContent}>MÓN MỚI</Text>
-        </View>
+          <View style={styles.header}>
+            <Text style={styles.headerContent}>MÓN MỚI</Text>
+          </View>
 
-        <FlatList
-          onRefresh={getTaskData}
-          refreshing={isLoading}
-          // style={styles}
-          data={task}
-          renderItem={renderTask}
-        />
-      </View>
+          <FlatList
+            onRefresh={getTaskData}
+            refreshing={isLoading}
+            // style={styles}
+            data={task}
+            renderItem={renderTask}
+          />
+        </View>
+      </ScrollView>
     </View>
   );
 }

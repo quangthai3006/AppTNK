@@ -13,12 +13,14 @@ import Header from "../../HeaderScreen/Header";
 import { styles } from "./StylesProductDetails";
 import Promotion from "../PromotionScreens/Promotion";
 import { getIdMockApi } from "../../../Services/FoodDetails/authentication";
+import { PostCardMockApi } from "../../../Services/FoodDetails/authentication";
 
 const ProductDetails = ({ navigation, route }) => {
   // const [Price, setPrice] = useState()
   const [count, setCount] = useState(1);
   const ItemId = route.params?.ItemId;
   const [task, setTask] = useState({
+    id: "",
     name: "",
     price: "",
     description: "",
@@ -31,6 +33,18 @@ const ProductDetails = ({ navigation, route }) => {
       const { data } = await getIdMockApi(id);
       // console.log(data);
       setTask(data);
+    } catch (err) {
+      alert(err.response);
+    }
+  };
+
+  const PostCardMockApiVariable = async () => {
+    try {
+      const itemIdAsNumber = parseInt(task.id);
+      const { data } = await PostCardMockApi({ ItemId: itemIdAsNumber, count });
+      // console.log(data)
+      alert("Thêm thành công!");
+      navigation.navigate(Promotion);
     } catch (err) {
       alert(err.response);
     }
@@ -179,9 +193,7 @@ const ProductDetails = ({ navigation, route }) => {
                 width: 320,
                 height: 50,
               }}
-              onPress={() => {
-                navigation.navigate("Promotion", { ItemId: task?.id, count: count});
-              }}
+              onPress={PostCardMockApiVariable}
             >
               <Text
                 style={{

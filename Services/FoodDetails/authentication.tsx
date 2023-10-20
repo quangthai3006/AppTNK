@@ -1,5 +1,17 @@
 import axios from "axios";
-import { getAllUrl, getDataUrl,getDataUrl1, getId, getAllMock, getIdMock, deleteMock } from "./api";
+import {
+  getAllUrl,
+  getDataUrl,
+  getDataUrl1,
+  getId,
+  getAllMock,
+  getIdMock,
+  deleteCardMock,
+  postCardMock,
+  putCardMock,
+  getAllCardMock,
+  getIdCardMock
+} from "./api";
 import { FoodItem } from "./interface";
 
 // export const registerApi = ({
@@ -22,43 +34,65 @@ import { FoodItem } from "./interface";
 // };
 
 export const listFoodItemApi = () => {
-    return axios({
-        method: "GET",
-        url: getAllUrl
-    })
-}
+  return axios({
+    method: "GET",
+    url: getAllUrl,
+  });
+};
 
 export const listApi = () => {
-    return axios({
-        method: "GET",
-        url: getDataUrl1
-    })
-}
+  return axios({
+    method: "GET",
+    url: getDataUrl1,
+  });
+};
 
 export const getIdApi = (id: string) => {
-    return axios({
-        method: "GET",
-        url: getId.concat(id)
-    })
-}
+  return axios({
+    method: "GET",
+    url: getId.concat(id),
+  });
+};
 
 export const getAllMockApi = () => {
-    return axios({
-        method: 'GET',
-        url: getAllMock
-    })
-}
+  return axios({
+    method: "GET",
+    url: getAllMock,
+  });
+};
 
 export const getIdMockApi = (id: string) => {
-    return axios({
-        method: "GET",
-        url: getIdMock.concat(id)
-    })
-}
+  return axios({
+    method: "GET",
+    url: getIdMock.concat(id),
+  });
+};
 
 export const DeleteMockApi = (id: string) => {
-    return axios({
-        method: "DELETE",
-        url: deleteMock.concat(id)
-    })
+  return axios({
+    method: "DELETE",
+    url: deleteCardMock.concat(id),
+  });
+};
+
+export const PostCardMockApi = (params: { ItemId: number, count: number })=> {
+  return axios({
+    method: "POST",
+    url: postCardMock,
+    data: params,
+  });
+};
+
+export const GetAllCardMockApi = () => {
+  return axios({
+    method: "GET",
+    url: getAllCardMock,
+  })
+}
+
+export const GetIdCardMockApi = (id : string) => {
+  return axios({
+    method: "GET",
+    url: getIdCardMock.concat(id)
+  })
 }

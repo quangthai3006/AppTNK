@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   header: {
-    marginTop: 60,
+    marginTop: 10,
     marginBottom: 10,
     marginHorizontal: 8,
   },
@@ -21,6 +21,7 @@ export const styles = StyleSheet.create({
   content: {
     borderWidth: 1,
     borderColor: "#ccc",
+    marginBottom: 10,
     // height: 135,
     borderRadius: 8,
     // shadowColor: "#000",
@@ -55,6 +56,34 @@ export const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: 6,
     color: "white",
+  },
+  backgroundImage: {
+    flex: 1,
+    width: '80%',
+    height: '80%',
+  
+  },
+  orderButton: {
+    backgroundColor: "#e4002b",
+    marginTop: 14,
+    marginLeft: 25, 
+    marginRight: 130,
+    paddingVertical: 12,
+    borderRadius: 30,
+  },
+  orderButtonText: {
+    color: "#fff",
+    fontSize: 18,
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+  footerCard: {
+    borderWidth: 1,
+    borderRadius: 10,
+    borderColor: "#ccc",
+    marginBottom: 30,
+    height: 350,
   }
+
 
 });

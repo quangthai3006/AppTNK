@@ -8,14 +8,28 @@ const Card = ({ navigation }) => {
   const handleOrder = () => {
     navigation.navigate("Menu")
   }
+  function exampleFunction(...args) {
+    // Biến args sẽ là một mảng chứa tất cả các đối số truyền vào hàm
+    // args có thể chứa bất kỳ số lượng đối số nào, bao gồm cả đối tượng và số
+    
+    // Ví dụ:
+    console.log(args);
+  }
+  
+  // Sử dụng hàm với các đối số khác nhau, bao gồm đối tượng và số
+  const myObject = { name: "John", age: 30 };
+  const myNumber = 42;
+  
+  exampleFunction(myObject, myNumber, "Hello");
+  
   return (
     <View style={styles.container}>
       <Header />
       <ScrollView>
-        <View style={styles.containerChild}>
-          <View style={styles.header}>
+        {/* <View style={styles.containerChild}> */}
+          {/* <View style={styles.header}>
             <Text style={styles.headerContent}>GIỎ HÀNG CỦA TÔI</Text>
-          </View>
+          </View> */}
 
           <View
             style={{
@@ -42,7 +56,7 @@ const Card = ({ navigation }) => {
               style={styles.backgroundImage}
             />
           </View>
-        </View>
+        {/* </View> */}
       </ScrollView>
     </View>
   );

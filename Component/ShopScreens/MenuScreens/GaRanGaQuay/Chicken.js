@@ -6,6 +6,7 @@ import {
   Text,
   TouchableOpacity,
   Image,
+  ScrollView,
 } from "react-native";
 import {
   listFoodItemApi,
@@ -131,6 +132,7 @@ export default function Chicken({ navigation }) {
   };
   return (
     <View style={styles.container}>
+      <ScrollView>
       <View style={styles.containerChild}>
         <View style={styles.body}>
           <View style={styles.bodySearch}>
@@ -161,6 +163,7 @@ export default function Chicken({ navigation }) {
           renderItem={renderTask}
         />
       </View>
+      </ScrollView>
     </View>
   );
 }

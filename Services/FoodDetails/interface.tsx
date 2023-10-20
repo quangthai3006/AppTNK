@@ -1,8 +1,12 @@
 export interface FoodItem { 
-    Id: string
-    Name: string
-    Price: string
-    Description: string
-    Category: string
-    ImageData: string
+    ItemId: string
+    count: number
 }
+
+// idItem: string
+// name: string
+// price: string
+// description: string
+// category: string
+// imagedata: string
+// count: number
