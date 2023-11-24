@@ -1,10 +1,6 @@
 import React, { Component, useState } from "react";
 import { styles } from "./StylesRegistration";
 import Checkbox from "expo-checkbox";
-import Home from "../ShopScreens/HomeScreens/Home";
-import { registerApi } from "../../Services/authentication";
-// import { validateEmail } from "./ValiDateEmail";
-
 import {
   View,
   StyleSheet,
@@ -16,45 +12,53 @@ import {
   Linking,
   Dimensions,
 } from "react-native";
+import Login from "./LoginScreen/Login";
 import Header from "../HeaderScreen/Header";
-import Card from "../ShopScreens/CardScreens/Card";
-import { validateEmail, validateName, validatePassWord } from "../../ultils/validates"
-import { listRegisterApi, listRegisterApi1 } from "../../Services/RegisterLogin/authentication";
+import Shop from "./LoginScreen/ShopScreens/Shop";
+import {
+  validateEmail,
+  validateName,
+  validatePassWord,
+  validateCheckBoxRules,
+} from "../../ultils/validates";
+import { PostRegistration } from "../../Services/RegisterLogin/authentication";
 
 const Registration = ({ navigation }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [secureTextEntry, setSecureTextEntry] = useState(true);
+  const [role, setRole] = useState("");
   const [isChecked, setChecked] = useState(false);
+  const [isCustomer, setIsCustomer] = useState(false);
+  const [isSeller, setIsSeller] = useState(false);
 
   const register = async () => {
-    //   if(password != rePassword) {
-    //     return alert("Mật khẩu không khớp")
-    // }
-
     if (
       validateName(name) &&
       validateEmail(email) &&
-      validatePassWord(password)
+      validatePassWord(password) &&
+      validateCheckBoxRole(isCustomer, isSeller, setRole) &&
+      validateCheckBoxRules(isChecked) 
     ) {
       try {
-        const registerResponse = await listRegisterApi1({
+        console.log(role)
+        const registerResponse = await PostRegistration({
           name,
           email,
           password,
+          role,
         });
-
         const { data } = registerResponse;
         alert("Tạo tài khoản thành công!");
-        navigation.navigate("Card");
+        navigation.navigate("Login");
       } catch (err) {
-        // alert(err.response?.data?.message || "Lỗi không xác định");
-        // alert(err.response?.data?.message);
-        const message = err.response
-        alert(message)
-        // console.error(err);
-        // alert("Lỗi");
+        if (err.response) {
+          const errorMessage = err.response.data;
+          alert(errorMessage);
+        } else {
+          console.error("An error occurred:", err);
+        }
       }
     }
   };
@@ -89,8 +93,27 @@ const Registration = ({ navigation }) => {
   const toggleCheckBox = () => {
     setChecked(!isChecked);
   };
-  const handleLinkPassWord = () => {
-    navigation.navigate("Home");
+  const handleLinkPassword = () => {
+    navigation.navigate("Login");
+  };
+
+  const handleCustomerChange = () => {
+    setIsCustomer(!isCustomer);
+    setIsSeller(false);
+  };
+
+  const handleSellerChange = () => {
+    setIsSeller(!isSeller);
+    setIsCustomer(false);
+  };
+
+  const validateCheckBoxRole = (isCustomer, isSeller, setRole) => {
+    if (!isCustomer && !isSeller) {
+      alert("Bạn chưa chọn vai trò!");
+      return false;
+    }
+    setRole(isCustomer ? "KhachHang" : "NguoiBan");
+    return true;
   };
   return (
     // Header
@@ -150,6 +173,27 @@ const Registration = ({ navigation }) => {
               {renderEyeIcon()}
             </View>
           </View> */}
+
+          <View>
+            <Text>Chọn loại người dùng:</Text>
+            <View style={{ flexDirection: "row" }}>
+              <Checkbox
+                title="Khách hàng"
+                value={isCustomer}
+                onValueChange={handleCustomerChange}
+              />
+              <Text>Khách Hàng</Text>
+            </View>
+
+            <View style={{ flexDirection: "row" }}>
+              <Checkbox
+                title="Người bán"
+                value={isSeller}
+                onValueChange={handleSellerChange}
+              />
+              <Text>Người Bán</Text>
+            </View>
+          </View>
 
           <View
             style={{
@@ -222,7 +266,7 @@ const Registration = ({ navigation }) => {
             }}
           >
             <Text>Bạn đã có tài khoản? {""}</Text>
-            <TouchableOpacity onPress={handleLinkPassWord}>
+            <TouchableOpacity onPress={handleLinkPassword}>
               <Text style={{ color: "blue", textDecorationLine: "underline" }}>
                 Đăng Nhập
               </Text>

@@ -1,11 +1,11 @@
-export interface Register { 
+export interface Registration {
     name: string
     email: string
     password: string
+    role: string
 }
 
-export interface Register1 { 
-    maUngVien: string
+export interface Login {
     email: string
-    diaChi: string
+    password: string
 }

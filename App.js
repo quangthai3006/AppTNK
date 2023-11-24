@@ -1,10 +1,27 @@
 import { createAppContainer } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
-import Shop from "./Component/ShopScreens/Shop"
+import Registration from "./Component/RegistrationScreen/Registration"
 import { NavigationContainer } from '@react-navigation/native';
-
+import Shop from "./Component/RegistrationScreen/LoginScreen/ShopScreens/Shop";
+import Login from "./Component/RegistrationScreen/LoginScreen/Login";
+import ProductDetails from "./Component/RegistrationScreen/LoginScreen/ShopScreens/ProductDetails/ProductDetails";
+import Pay from "./Screens/Pay"
 const StackNavigator = createStackNavigator(
   {
+
+    Registration: {
+      screen: Registration,
+      navigationOptions: {
+        headerShown: false, // Ẩn tiêu đề trên màn hình
+      },
+    },
+
+    Login: {
+      screen: Login,
+      navigationOptions: {
+        headerShown: false, // Ẩn tiêu đề trên màn hình
+      },
+    },
 
     Shop: {
       screen: Shop,
@@ -12,11 +29,25 @@ const StackNavigator = createStackNavigator(
         headerShown: false, // Ẩn tiêu đề trên màn hình
       },
     },
+
+    ProductDetails: {
+      screen: ProductDetails,
+      navigationOptions: {
+        headerShown: false, // Ẩn tiêu đề trên màn hình
+      },
+    },
+
+    Pay: {
+      screen: Pay,
+      navigationOptions: {
+        headerShown: false, // Ẩn tiêu đề trên màn hình
+      },
+    }
     
   },
 
   {
-    initialRouteName: "Shop",
+    initialRouteName: "Registration",
   }
 );
 
