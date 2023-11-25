@@ -11,6 +11,7 @@ import Burger from "./MenuScreens/BurgerComMiY/Burger";
 import ProductDetails from "./ProductDetails/ProductDetails";
 import PutProductDetails from "./PutProductDetailsScreen/PutProductDetails";
 import Favorite from "./Favorite/Favorite";
+import Pay from "./PayScreens/Pay"
 import { NavigationContainer } from "@react-navigation/native";
 import { Component, useState } from "react";
 
@@ -62,7 +63,7 @@ const Shop = ({ navigation }) => {
             tabBarIcon: ({ focused }) =>
               focused ? (
                 <Image
-                style={{ height: 30, width: 30 }}
+                  style={{ height: 30, width: 30 }}
                   source={require("../../../../assets/house_real_icon.png")}
                 />
               ) : (
@@ -102,7 +103,7 @@ const Shop = ({ navigation }) => {
             tabBarIcon: ({ focused }) =>
               focused ? (
                 <Image
-                style={{ height: 30, width: 30 }}
+                  style={{ height: 30, width: 30 }}
                   source={require("../../../../assets/sale_promotion_icon.png")}
                 />
               ) : (
@@ -122,7 +123,7 @@ const Shop = ({ navigation }) => {
             tabBarIcon: ({ focused }) =>
               focused ? (
                 <Image
-                style={{ height: 30, width: 30 }}
+                  style={{ height: 30, width: 30 }}
                   source={require("../../../../assets/cart_icon.png")}
                 />
               ) : (
@@ -163,7 +164,7 @@ const Shop = ({ navigation }) => {
             tabBarIcon: ({ focused }) =>
               focused ? (
                 <Image
-                style={{ height: 30, width: 30 }}
+                  style={{ height: 30, width: 30 }}
                   source={require("../../../../assets/food_junk.png")}
                 />
               ) : (
@@ -211,6 +212,27 @@ const Shop = ({ navigation }) => {
                 <Image
                   style={{ height: 20, width: 20 }}
                   source={require("../../../../assets/like_notification_icon.png")}
+                />
+              ),
+          }}
+        />
+
+        <Tab.Screen
+          name="Pay"
+          component={Pay}
+          options={{
+            headerShown: false,
+            tabBarLabel: "Pay",
+            tabBarIcon: ({ focused }) =>
+              focused ? (
+                <Image
+                  style={{ height: 40, width: 40 }}
+                  source={require("../../../../assets/visa_icon.png")}
+                />
+              ) : (
+                <Image
+                  style={{ height: 20, width: 20 }}
+                  source={require("../../../../assets/credit_finance_icon.png")}
                 />
               ),
           }}

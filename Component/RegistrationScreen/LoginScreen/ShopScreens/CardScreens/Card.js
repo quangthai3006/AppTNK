@@ -18,6 +18,7 @@ import PutProductDetails from "../PutProductDetailsScreen/PutProductDetails";
 import ProductDetails from "../ProductDetails/ProductDetails";
 import getAccessUserId from "../../../../../Services/RegisterLogin/authentication";
 import Header from "../../../../HeaderScreen/Header";
+import Pay from "../PayScreens/Pay"
 import { styles } from "./StylesCard";
 import { get } from "react-native/Libraries/TurboModule/TurboModuleRegistry";
 
@@ -130,6 +131,10 @@ const Card = ({ navigation, route }) => {
 
   const handleOrder = () => {
     navigation.navigate("Menu");
+  };
+
+  const handlePay = () => {
+    navigation.navigate("Pay")
   };
 
   const renderTask = ({ item }) => {
@@ -481,6 +486,7 @@ const Card = ({ navigation, route }) => {
                   width: 300,
                   height: 50,
                 }}
+                onPress={handlePay}
               >
                 <View
                   style={{

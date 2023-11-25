@@ -5,7 +5,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import Shop from "./Component/RegistrationScreen/LoginScreen/ShopScreens/Shop";
 import Login from "./Component/RegistrationScreen/LoginScreen/Login";
 import ProductDetails from "./Component/RegistrationScreen/LoginScreen/ShopScreens/ProductDetails/ProductDetails";
-import Pay from "./Screens/Pay"
 const StackNavigator = createStackNavigator(
   {
 
@@ -37,12 +36,6 @@ const StackNavigator = createStackNavigator(
       },
     },
 
-    Pay: {
-      screen: Pay,
-      navigationOptions: {
-        headerShown: false, // Ẩn tiêu đề trên màn hình
-      },
-    }
     
   },
 
